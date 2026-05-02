@@ -21,12 +21,14 @@ export default {
         muted: '#F1F5F9',
       },
       fontFamily: {
-        // Body: Outfit, weight 300 by default (set on <body>).
-        sans: ['var(--font-outfit)', 'system-ui', 'sans-serif'],
-        // Headings + display: Urbanist.
-        display: ['var(--font-urbanist)', 'system-ui', 'sans-serif'],
-        urbanist: ['var(--font-urbanist)', 'system-ui', 'sans-serif'],
-        outfit: ['var(--font-outfit)', 'system-ui', 'sans-serif'],
+        // Single font for the whole site — Inter, self-hosted.
+        // CSS variable defined in globals.css via @font-face.
+        sans: ['var(--font-inter)'],
+        display: ['var(--font-inter)'],
+        // Aliases kept so existing `font-urbanist` / `font-outfit` utilities
+        // still resolve. Both point at Inter.
+        urbanist: ['var(--font-inter)'],
+        outfit: ['var(--font-inter)'],
       },
       maxWidth: { prose: '70ch' },
       borderRadius: {

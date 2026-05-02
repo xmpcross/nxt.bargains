@@ -4,8 +4,11 @@ export const SITE = {
   description:
     'Side-by-side product comparisons, honest reviews, roundups and how-to guides — pick the right gadget without the wading.',
   url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://nxtbargains.fxnstudio.com').replace(/\/$/, ''),
-  twitter: '',
   amazonAffiliateTag: process.env.NEXT_PUBLIC_AMAZON_AFFILIATE_TAG || '',
+  social: {
+    facebook: 'https://www.facebook.com/nxtbargains',
+    twitter: 'https://x.com/nxtbargains',
+  },
 };
 
 export type SectionKey =

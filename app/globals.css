@@ -2,28 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Self-hosted Inter (variable, latin) — saved at public/fonts/InterVariable*.woff2.
+   One file covers every weight 100-900 + matching italic. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/InterVariable.woff2') format('woff2-variations'),
+       url('/fonts/InterVariable.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/InterVariable-Italic.woff2') format('woff2-variations'),
+       url('/fonts/InterVariable-Italic.woff2') format('woff2');
+}
+
 :root {
   color-scheme: light;
+  --font-inter: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Aliased so existing Tailwind `font-display` / `font-outfit` / `font-urbanist`
+     utilities all resolve to Inter without touching consumers. */
+  --font-urbanist: var(--font-inter);
+  --font-outfit: var(--font-inter);
 }
 
 html, body {
   background: theme('colors.paper');
   color: theme('colors.ink');
-  font-family: var(--font-outfit), system-ui, sans-serif;
-  font-weight: 300;
+  font-family: var(--font-inter);
+  font-weight: 400;
 }
 
-/* All headings — site chrome and post body — use Urbanist. */
+/* Site-wide h1/h2/h3 sizing. Uses !important to override per-component
+   Tailwind utility classes (e.g. text-5xl) without touching every file. */
+h1 { font-size: 2.5rem !important; line-height: 1.1; }
+h2 { font-size: 1.5rem !important; line-height: 1.25; }
+h3 { font-size: 1.2rem !important; line-height: 1.3; }
+
+/* All headings (site chrome + post body) — Inter, the single site font. */
 h1, h2, h3, h4, h5, h6,
 .post-content h1, .post-content h2, .post-content h3,
 .post-content h4, .post-content h5, .post-content h6 {
-  font-family: var(--font-urbanist), system-ui, sans-serif;
+  font-family: var(--font-inter);
 }
 
-/* Post body text uses Outfit-300 (matches <body>) */
+/* Post body text */
 .post-content {
-  font-family: var(--font-outfit), system-ui, sans-serif;
-  font-weight: 300;
+  font-family: var(--font-inter);
+  font-weight: 400;
 }
 
 /* ---------------------------------------------------------------------------

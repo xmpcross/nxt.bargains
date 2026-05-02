@@ -4,7 +4,17 @@ import { fmtDate, firstImageUrl, postPath } from '@/lib/format';
 
 type Variant = 'feature' | 'compact' | 'tile';
 
-export default function PostCard({ post, variant = 'tile' }: { post: NxtPost; variant?: Variant }) {
+export default function PostCard({
+  post,
+  variant = 'tile',
+  thumbBg = 'bg-muted',
+}: {
+  post: NxtPost;
+  variant?: Variant;
+  /** Tailwind class for the thumbnail's surface (background behind the
+   *  product photo). Default `bg-muted`; pass `bg-white` to remove the gray. */
+  thumbBg?: string;
+}) {
   // Cover image: prefer Strapi coverImage; fall back to the first <img> in the
   // post body (typically the first product image in a comparison/roundup).
   const img = mediaUrl(post.coverImage ?? null) ?? firstImageUrl(post.content);
@@ -14,13 +24,13 @@ export default function PostCard({ post, variant = 'tile' }: { post: NxtPost; va
   if (variant === 'feature') {
     return (
       <article className="group" data-testid={`feature-${post.slug}`}>
-        <Link href={href} className="block overflow-hidden rounded-3xl bg-muted">
+        <Link href={href} className={`block overflow-hidden rounded-3xl ${thumbBg}`}>
           {img ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={img}
               alt={post.coverImage?.alternativeText || post.title}
-              className="aspect-[16/10] w-full object-contain transition duration-500 group-hover:scale-[1.02]"
+              className="aspect-[16/10] w-full object-contain mix-blend-multiply transition duration-500 group-hover:scale-[1.02]"
             />
           ) : (
             <div className="aspect-[16/10] w-full bg-gradient-to-br from-primary-hover to-primary" />
@@ -54,13 +64,13 @@ export default function PostCard({ post, variant = 'tile' }: { post: NxtPost; va
     return (
       <article className="group py-5 first:pt-0 last:pb-0" data-testid={`compact-${post.slug}`}>
         <Link href={href} className="grid grid-cols-[112px_minmax(0,1fr)] gap-4">
-          <div className="overflow-hidden rounded-xl bg-muted">
+          <div className={`overflow-hidden rounded-xl ${thumbBg}`}>
             {img ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={img}
                 alt={post.coverImage?.alternativeText || post.title}
-                className="aspect-square h-full w-full object-contain transition duration-500 group-hover:scale-105"
+                className="aspect-square h-full w-full object-contain mix-blend-multiply transition duration-500 group-hover:scale-105"
               />
             ) : (
               <div className="aspect-square bg-gradient-to-br from-primary-hover to-primary" />
@@ -83,13 +93,13 @@ export default function PostCard({ post, variant = 'tile' }: { post: NxtPost; va
   // tile (default)
   return (
     <article className="group flex flex-col" data-testid={`tile-${post.slug}`}>
-      <Link href={href} className="block overflow-hidden rounded-3xl bg-muted">
+      <Link href={href} className={`block overflow-hidden rounded-3xl ${thumbBg}`}>
         {img ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={img}
             alt={post.coverImage?.alternativeText || post.title}
-            className="aspect-[4/3] w-full object-contain transition duration-500 group-hover:scale-[1.02]"
+            className="aspect-[4/3] w-full object-contain mix-blend-multiply transition duration-500 group-hover:scale-[1.02]"
           />
         ) : (
           <div className="aspect-[4/3] w-full bg-gradient-to-br from-primary-hover to-primary" />
